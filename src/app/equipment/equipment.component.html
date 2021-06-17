@@ -2,8 +2,10 @@
     <h3>Equipment</h3>
     <ol>
         <li *ngFor="let item of equipmentItems">
-            <!-- "Add to Cargo Hold" button goes here. -->
+            <!-- "Add to Cargo Hold" button goes here. Add a (click) event to each button that calls the addItem function and passes the selected equipment as the argument.-->
+            <button (click) = "nearMax = addItem(item)" [class.active] = "!disabled(item)" [disabled] = "disabled(item)">Add to Cargo Hold</button>
             {{item.name}}, {{item.mass}} kg
+            <!-- Bind [class.nearMaxMass] to a boolean that will change the style of the Mass Budget Remaining text whenever the cargo hold gets within 200 kg of maximumAllowedMass.-->
         </li>
     </ol>
 </div>
@@ -16,7 +18,8 @@
         <li *ngFor="let equipment of cargoHold">{{equipment.name}}</li>
     </ol>
     <p>Mass in Hold: {{cargoMass}} kg</p>
-    <p>Mass Budget Remaining: {{<!-- Calculate mass remaining here. -->}} kg</p>
-    <!-- Add the "Empty Hold" button here. -->
+    <p [class.nearMaxMass] = "nearMax">Mass Budget Remaining: {{maximumAllowedMass - cargoMass}} kg</p> <!-- Calculate mass remaining here. -->
+    <!-- Add the "Empty Hold" button here. Add an Empty Hold button that clears the cargoHold array and resets cargoMass. -->
+    <button (click) = "nearMax = clearHold()">Clear Hold</button>
 </div>
 
